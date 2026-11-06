@@ -6,13 +6,23 @@ import Cart from "./Cart";
 
 export default function App() {
   const [number, setNumber] = useState(0);
+  const [items, setItems] = useState([]);
 
   function updateCart(event) {
     event.preventDefault();
 
     // currentTarget gets the parent element associated with the event handler
     const data = new FormData(event.currentTarget);
+
     setNumber((number) => number + Number(data.get("quantity")));
+
+    setItems([
+      ...items,
+      {
+        product: data?.get("product"),
+        quantity: data?.get("quantity"),
+      },
+    ]);
   }
 
   return (
@@ -23,7 +33,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Shopping handleCart={updateCart} />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/cart" element={<Cart items={items} />}></Route>
       </Routes>
     </BrowserRouter>
   );

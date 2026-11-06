@@ -17,6 +17,7 @@ export default function Shop({ handleCart }) {
               max="50"
             />
             <button type="submit">Add to Cart</button>
+            <input type="hidden" name="product" value="demo" />
           </form>
         </div>
         <div>
@@ -33,6 +34,7 @@ export default function Shop({ handleCart }) {
               max="50"
             />
             <button type="submit">Add to Cart</button>
+            <input type="hidden" name="product" value="product" />
           </form>
         </div>
       </div>
