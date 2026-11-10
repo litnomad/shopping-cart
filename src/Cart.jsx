@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Cart({ items, onChange }) {
+export default function Cart({ items, handleChange }) {
   const [onEdit, setEdit] = useState(false);
 
   return (
@@ -12,16 +12,21 @@ export default function Cart({ items, onChange }) {
             <div className="product">{item.product}</div>
             {!onEdit && <div className="quantity">{item.quantity}</div>}
             {onEdit && (
-              <form action="" method="post" onSubmit={onChange}>
+              <form
+                method="post"
+                onSubmit={(e) => {
+                  handleChange(e);
+                  setEdit(false);
+                }}
+              >
                 <input
                   type="number"
                   name="quantity"
                   defaultValue={item.quantity}
                   placeholder={item.quantity}
                 />
-                <button type="submit" onClick={() => setEdit(false)}>
-                  Confirm
-                </button>
+                <button type="submit">Confirm</button>
+                <input type="hidden" name="product" value={item.product} />
               </form>
             )}
           </div>

@@ -8,30 +8,60 @@ export default function App() {
   const [number, setNumber] = useState(0);
   const [items, setItems] = useState([]);
 
-  function updateCart(event) {
+  function onSubmit(event) {
     event.preventDefault();
-    
-    // currentTarget gets the parent element associated with the event handler
+
     const data = new FormData(event.currentTarget);
     setNumber((number) => number + Number(data.get("quantity")));
 
-    setItems([
-      ...items,
-      {
-        product: data?.get("product"),
-        quantity: data?.get("quantity"),
-      },
-    ]);
+    if (items.length == 0) {
+      setItems([
+        {
+          product: data?.get("product"),
+          quantity: data?.get("quantity"),
+        },
+      ]);
+    }
+    if (items.length > 0) {
+      if (items.find(({ product }) => product === data.get("product"))) {
+        setItems(
+          items.map((item) =>
+            item.product === data.get("product")
+              ? {
+                  ...item,
+                  quantity:
+                    Number(item.quantity) + Number(data.get("quantity")),
+                }
+              : item,
+          ),
+        );
+      }
+      if (!items.find(({ product }) => product === data.get("product"))) {
+        setItems([
+          ...items,
+          { product: data?.get("product"), quantity: data?.get("quantity") },
+        ]);
+      }
+    }
   }
 
-  function updateQuantity(event) {
+  function onChange(event) {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    setNumber(data.get("quantity"));
-    console.log("quantity change ran", data.get("quantity"));
 
-    // items aren't getting updated?
+    const updatedItems = items.map((item) =>
+      data.get("product") === item.product
+        ? { ...item, quantity: data.get("quantity") }
+        : item,
+    );
+    setItems(updatedItems);
+
+    const updatedTotal = updatedItems.reduce(
+      (sum, curr) => sum + Number(curr.quantity),
+      0,
+    );
+    setNumber(updatedTotal);
   }
 
   return (
@@ -41,10 +71,10 @@ export default function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Shopping handleCart={updateCart} />}></Route>
+        <Route path="/" element={<Shopping handleSubmit={onSubmit} />}></Route>
         <Route
           path="/cart"
-          element={<Cart items={items} onChange={updateQuantity} />}
+          element={<Cart items={items} handleChange={onChange} />}
         ></Route>
       </Routes>
     </BrowserRouter>

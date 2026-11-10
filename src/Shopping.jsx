@@ -1,4 +1,4 @@
-export default function Shop({ handleCart }) {
+export default function Shop({ handleSubmit }) {
   return (
     <div>
       <h1>Shopping page!</h1>
@@ -6,7 +6,7 @@ export default function Shop({ handleCart }) {
         <div>
           <h2>Product</h2>
           <div></div>
-          <form action="" onSubmit={handleCart}>
+          <form action="" onSubmit={handleSubmit}>
             <label htmlFor="quantity">Quantity:</label>
             <input
               type="number"
@@ -23,7 +23,7 @@ export default function Shop({ handleCart }) {
         <div>
           <h2>Product</h2>
           <div></div>
-          <form action="" onSubmit={handleCart}>
+          <form action="" onSubmit={handleSubmit}>
             <label htmlFor="quantity">Quantity:</label>
             <input
               type="number"

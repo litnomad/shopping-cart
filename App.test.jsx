@@ -14,6 +14,12 @@ describe("App component", () => {
   it("renders Shopping", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { level: 1 })).toBeInDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+  });
+
+  it("renders Shopping header", () => {
+    render(<App />);
+
+    expect(screen.getByText("Shopping page!"));
   });
 });
