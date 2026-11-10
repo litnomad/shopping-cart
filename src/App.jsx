@@ -10,10 +10,9 @@ export default function App() {
 
   function updateCart(event) {
     event.preventDefault();
-
+    
     // currentTarget gets the parent element associated with the event handler
     const data = new FormData(event.currentTarget);
-
     setNumber((number) => number + Number(data.get("quantity")));
 
     setItems([
@@ -25,6 +24,16 @@ export default function App() {
     ]);
   }
 
+  function updateQuantity(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    setNumber(data.get("quantity"));
+    console.log("quantity change ran", data.get("quantity"));
+
+    // items aren't getting updated?
+  }
+
   return (
     <BrowserRouter>
       <nav>
@@ -33,7 +42,10 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Shopping handleCart={updateCart} />}></Route>
-        <Route path="/cart" element={<Cart items={items} />}></Route>
+        <Route
+          path="/cart"
+          element={<Cart items={items} onChange={updateQuantity} />}
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
