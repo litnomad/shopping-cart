@@ -17,7 +17,10 @@ export default function App() {
     if (items.length == 0) {
       setItems([
         {
+          id: data?.get("id"),
           product: data?.get("product"),
+          image: data?.get("image"),
+          price: data?.get("price"),
           quantity: data?.get("quantity"),
         },
       ]);
@@ -39,7 +42,13 @@ export default function App() {
       if (!items.find(({ product }) => product === data.get("product"))) {
         setItems([
           ...items,
-          { product: data?.get("product"), quantity: data?.get("quantity") },
+          {
+            id: data?.get("id"),
+            product: data?.get("product"),
+            image: data?.get("image"),
+            price: data?.get("price"),
+            quantity: data?.get("quantity"),
+          },
         ]);
       }
     }

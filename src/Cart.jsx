@@ -8,9 +8,11 @@ export default function Cart({ items, handleChange }) {
       <h1>Cart</h1>
       {items?.map((item) => {
         return (
-          <div key={item.product} className="card">
+          <div key={item.id} className="card">
             <div className="product">{item.product}</div>
-            {!onEdit && <div className="quantity">{item.quantity}</div>}
+            {!onEdit && <div className="quantity">{item.quantity}</div> && (
+              <p>{item.price * item.quantity}</p>
+            )}
             {onEdit && (
               <form
                 method="post"
@@ -22,6 +24,7 @@ export default function Cart({ items, handleChange }) {
                 <input
                   type="number"
                   name="quantity"
+                  min="0"
                   defaultValue={item.quantity}
                   placeholder={item.quantity}
                 />
