@@ -10,7 +10,7 @@ export default function Navbar({ num }) {
         <li>
           <Link
             to={{
-              pathname: "./Cart",
+              pathname: "/cart",
             }}
           >
             Shopping Cart

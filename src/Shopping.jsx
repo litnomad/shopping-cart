@@ -39,11 +39,11 @@ export default function Shop({ handleSubmit }) {
               <img src={product.image} />
               <p>{product.price}</p>
               <form action="" onSubmit={handleSubmit}>
-                <label htmlFor="quantity">Quantity:</label>
+                <label htmlFor={product.id}>Quantity:</label>
                 <input
                   type="number"
                   step="1"
-                  id="quantity"
+                  id={product.id}
                   name="quantity"
                   min="0"
                   max="50"

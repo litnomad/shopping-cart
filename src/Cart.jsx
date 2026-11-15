@@ -10,8 +10,11 @@ export default function Cart({ items, handleChange }) {
         return (
           <div key={item.id} className="card">
             <div className="product">{item.product}</div>
-            {!onEdit && <div className="quantity">{item.quantity}</div> && (
-              <p>{item.price * item.quantity}</p>
+            {!onEdit && (
+              <>
+                <div className="quantity">Quantity: {item.quantity}</div>
+                <div className="total">${item.price * item.quantity}</div>
+              </>
             )}
             {onEdit && (
               <form
